@@ -1,9 +1,9 @@
 <script setup>
-import Hero from './components/Hero.vue'
-import { useTheme } from './hooks/useTheme'
-import { hero, pageTitle } from './hooks/useAppConfig'
+import Hero from './components/Hero.vue';
+import { useTheme } from './hooks/useTheme';
+import { hero, pageTitle } from './hooks/useAppConfig';
 
-const { isDark, toggleTheme } = useTheme()
+const { isDark, toggleTheme } = useTheme();
 </script>
 
 <template>

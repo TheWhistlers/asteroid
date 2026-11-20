@@ -24,6 +24,8 @@ references:
 ---
 # Hello, Asteroid!
 
+![ICON](/avatar.svg) Asteroid & you to make progress!
+
 Welcome to Asteroid, a simple static personal blog site generator.
 
 This documents will help you start with Asteroid quickly.

@@ -1,16 +1,20 @@
 <script setup>
-import { computed, reactive } from 'vue'
-import { useDocs } from '../hooks/useDocs'
-import DocTree from '../components/DocTree.vue'
+import { computed, reactive } from 'vue';
+import { useDocs } from '../hooks/useDocs';
+import DocTree from '../components/DocTree.vue';
 
-const { listDocTree } = useDocs()
-const tree = listDocTree()
+const { listDocTree } = useDocs();
+const tree = listDocTree();
 
-const state = reactive(Object.fromEntries(tree.dirs.map((key) => [key, true])))
-const hasCollapsed = computed(() => tree.dirs.some((key) => state[key]))
-const allCollapsed = computed(() => tree.dirs.length > 0 && tree.dirs.every((key) => state[key]))
-const collapseAll = () => tree.dirs.forEach((key) => { state[key] = true })
-const expandAll = () => tree.dirs.forEach((key) => { delete state[key] })
+// 记录文件目录树状结构的状态
+const state = reactive(Object.fromEntries(tree.dirs.map((key) => [key, true])));
+const hasCollapsed = computed(() => tree.dirs.some((key) => state[key]));
+const allCollapsed = computed(() => 
+  tree.dirs.length > 0 && tree.dirs.every((key) => state[key]));
+
+// 全折叠 / 全展开函数
+const collapseAll = () => tree.dirs.forEach((key) => { state[key] = true; });
+const expandAll = () => tree.dirs.forEach((key) => { delete state[key]; });
 </script>
 
 <template>

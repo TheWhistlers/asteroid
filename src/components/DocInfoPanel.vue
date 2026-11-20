@@ -2,9 +2,9 @@
 defineProps({
   meta: { type: Object, required: true },
   stats: { type: Object, required: true },
-})
+});
 
-const hasValue = (v) => Array.isArray(v) ? v.length > 0 : Boolean(v)
+const hasValue = (val) => Array.isArray(val) ? val.length > 0 : Boolean(val);
 </script>
 
 <template>

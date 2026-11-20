@@ -1,6 +1,6 @@
 <script setup>
-import profileRaw from '../profile.md?raw'
-import MarkdownDoc from '../components/MarkdownDoc.vue'
+import profileRaw from '../profile.md?raw';
+import MarkdownDoc from '../components/MarkdownDoc.vue';
 </script>
 
 <template>

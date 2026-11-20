@@ -6,7 +6,9 @@
  * 文字规则：avatar 取 name，name 取 target；显式传入的 label 优先级最高（兼容旧用法）。
  * 空值 / 非法 mode / 图片加载失败时统一降级为 name 模式的 "?" 占位，不抛错。
  */
-import { computed, ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue';
+
+const stringify = (val) => String(val ?? '').trim();
 
 const props = defineProps({
   mode: { type: String, default: '' },
@@ -15,38 +17,42 @@ const props = defineProps({
   name: { type: String, default: '' },
   /** 显式指定标识右侧的文字；不传时按 mode 自动取 name / target */
   label: { type: String, default: '' },
-})
+});
 
-const MODES = ['avatar', 'name']
+const MODES = ['avatar', 'name'];
 const mode = computed(() => {
-  const value = String(props.mode ?? '').trim().toLowerCase()
-  return MODES.includes(value) ? value : 'name'
-})
-const target = computed(() => String(props.target ?? '').trim())
+  const value = stringify(props.mode).toLowerCase();
+  return MODES.includes(value) ? value : 'name';
+});
+
+const target = computed(() => stringify(props.target));
 /** file:// 下把 /avatar.svg 这类绝对路径转成相对路径，否则会指向盘符根目录 */
 const resolvedTarget = computed(() => {
   const value = target.value
   const isFile = typeof window !== 'undefined' && window.location.protocol === 'file:'
   return isFile && value.startsWith('/') && !value.startsWith('//') ? value.slice(1) : value
-})
-const name = computed(() => String(props.name ?? '').trim())
-const label = computed(() => String(props.label ?? '').trim())
+});
+
+const name = computed(() => stringify(props.name));
+const label = computed(() => stringify(props.label));
 
 /** avatar 用 name，name 用 target；label 是显式覆盖，全为空则不显示文字 */
-const displayLabel = computed(() => label.value || (mode.value === 'avatar' ? name.value : target.value))
+const displayLabel = computed(() => {
+  return label.value || (mode.value === 'avatar' ? name.value : target.value);
+});
 
 /** 用展开运算符取第一个字符，避免把 emoji / 代理对切断 */
 const initial = computed(() => {
   const first = [...target.value][0]
   return first ? first.toUpperCase() : '?'
-})
+});
 
-const imageFailed = ref(false)
-watch(target, () => { imageFailed.value = false })
+const imageFailed = ref(false);
+watch(target, () => { imageFailed.value = false });
 
 const showAvatar = computed(() =>
   mode.value === 'avatar' && Boolean(target.value) && !imageFailed.value
-)
+);
 </script>
 
 <template>
@@ -55,7 +61,7 @@ const showAvatar = computed(() =>
       <img
         v-if="showAvatar"
         :src="resolvedTarget"
-        alt="站点头像"
+        alt="Site Avatar"
         @error="imageFailed = true"
       />
       <span v-else class="hero-initial">{{ initial }}</span>

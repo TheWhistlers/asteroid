@@ -1,13 +1,13 @@
 <script setup>
-import { computed, ref } from 'vue'
-import { MarkdownRenderer } from 'x-markdown-vue'
-import 'x-markdown-vue/style'
-import { useTheme } from '../hooks/useTheme'
-import { useDocMeta } from '../hooks/useDocMeta'
-import { useCollapsibleHeadings } from '../hooks/useCollapsibleHeadings'
-import { useMarkdownOutline } from '../hooks/useMarkdownOutline'
-import { shikiTheme } from '../hooks/useAppConfig'
-import DocInfoPanel from './DocInfoPanel.vue'
+import { computed, useTemplateRef } from 'vue';
+import { MarkdownRenderer } from 'x-markdown-vue';
+import 'x-markdown-vue/style';
+import { useTheme } from '../hooks/useTheme';
+import { useDocMeta } from '../hooks/useDocMeta';
+import { useCollapsibleHeadings } from '../hooks/useCollapsibleHeadings';
+import { useMarkdownOutline } from '../hooks/useMarkdownOutline';
+import { shikiTheme } from '../hooks/useAppConfig';
+import DocInfoPanel from './DocInfoPanel.vue';
 
 const props = defineProps({
   /** 原始 Markdown 文本（可含 YAML 元数据块） */
@@ -15,18 +15,19 @@ const props = defineProps({
     type: String,
     default: '',
   },
-})
+});
 
-const { isDark } = useTheme()
+// 是否为黑夜模式
+const { isDark } = useTheme();
 
 // YAML 元数据只用于右侧信息栏，不参与正文渲染
-const docMeta = computed(() => useDocMeta(props.content))
-const renderBody = computed(() => docMeta.value.body)
+const docMeta = computed(() => useDocMeta(props.content));
+const renderBody = computed(() => docMeta.value.body);
 
-const bodyRef = ref(null)
-const sources = [() => props.content]
-const { collapseAll, expandAll } = useCollapsibleHeadings(() => bodyRef.value, sources)
-const { outline, activeKey, jumpTo } = useMarkdownOutline(() => bodyRef.value, sources)
+const body = useTemplateRef('bodyRef');
+const sources = [() => props.content];
+const { collapseAll, expandAll } = useCollapsibleHeadings(() => body.value, sources);
+const { outline, activeKey, jumpTo } = useMarkdownOutline(() => body.value, sources);
 </script>
 
 <template>

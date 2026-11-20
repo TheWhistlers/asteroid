@@ -8,11 +8,11 @@ const props = defineProps({
   depth: { type: Number, default: 0 },
   /** 折叠状态表，由总览页持有，便于「全部折叠 / 展开」统一控制 */
   state: { type: Object, required: true },
-})
+});
 
-const indent = (depth) => `${16 + depth * 22}px`
-const isCollapsed = (key) => Boolean(props.state[key])
-const toggle = (key) => { props.state[key] = !props.state[key] }
+const indent = (depth) => `${16 + depth * 22}px`;
+const isCollapsed = (key) => Boolean(props.state[key]);
+const toggle = (key) => { props.state[key] = !props.state[key] };
 </script>
 
 <template>
