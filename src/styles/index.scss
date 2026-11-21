@@ -4,8 +4,9 @@
 // 下面的 :root / html.dark 只是主题加载失败时的兜底（Github 配色）。
 // 暗黑 / 光亮模式由 html.dark 切换。
 // ============================================================
+$font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
 
-// ---------- 兜底配色（Github Themes） ----------
+// base theme variables
 :root {
   --gh-canvas: #ffffff;
   --gh-canvas-subtle: #f6f8fa;
@@ -491,7 +492,18 @@ a {
     color: var(--md-code-fg);
     background: var(--md-code-bg);
     border-radius: 6px;
-    font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+    font-family: $font-mono;
+  }
+
+  // 代码块字体跨主题统一：不能依赖 github-markdown-css 作用域内的字体定义，
+  // 否则切换到 vue / atom / custom 主题时会退化成裸 monospace（字体缺失）。
+  pre,
+  pre code,
+  .x-md-code-block pre,
+  .x-md-code-block code,
+  pre.shiki,
+  pre[class*='shiki'] {
+    font-family: $font-mono;
   }
 
   pre {

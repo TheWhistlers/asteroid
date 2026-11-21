@@ -30,6 +30,7 @@ function readDocInfo(routePath) {
     date: meta.date,
     author: meta.author,
     summary: meta.summary,
+    keywords: meta.keywords,
   }
 }
 
