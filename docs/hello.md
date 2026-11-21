@@ -3,23 +3,23 @@ title: Hello, Asteroid!
 author: Asteroid
 date: "2026-11-15"
 updated: "2026-11-15"
-category: 随笔
-summary: 一篇介绍本站自动生成机制、代码高亮与目录式路由的示例文章。
+category: sketch
+summary: example documents
 keywords:
   - Vue 3
   - Vite
   - Markdown
-  - 个人博客
+  - Blogs
 references:
-  - title: Vite 官方文档
+  - title: Vite
     url: https://vite.dev/
-  - title: Vue 3 组合式 API
+  - title: Vue 3
     url: https://cn.vuejs.org/guide/introduction.html
   - title: x-markdown-vue
     url: https://github.com/element-plus-x/x-markdown
-  - title: CommonMark 规范
+  - title: CommonMark
     url: https://commonmark.org/
-  - title: Vite glob 导入 
+  - title: Vite glob
     url: https://vite.dev/guide/features.html#glob-import
 ---
 # Hello, Asteroid!
